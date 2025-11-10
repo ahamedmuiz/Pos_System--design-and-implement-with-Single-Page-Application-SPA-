@@ -139,6 +139,49 @@
   </table>
 </section>
 
+<section id="order-page" class="page-section" style="display:none;">
+  <h3>Order Management</h3>
+
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <label>Customer</label>
+      <select id="orderCustomer" class="form-select"></select>
+    </div>
+    <div class="col-md-4">
+      <label>Item</label>
+      <select id="orderItem" class="form-select"></select>
+    </div>
+    <div class="col-md-2">
+      <label>Qty</label>
+      <input type="number" id="orderQty" class="form-control" />
+    </div>
+    <div class="col-md-2 d-flex align-items-end">
+      <button class="btn btn-success w-100" id="btnAddToCart">Add to Cart</button>
+    </div>
+  </div>
+
+  <table class="table table-bordered">
+    <thead class="table-dark">
+      <tr><th>Code</th><th>Name</th><th>Price</th><th>Qty</th><th>Total</th></tr>
+    </thead>
+    <tbody id="cartTable"></tbody>
+  </table>
+
+  <div class="d-flex justify-content-between align-items-center">
+    <h5>Total: Rs. <span id="orderTotal">0.00</span></h5>
+    <button class="btn btn-primary" id="btnPlaceOrder">Place Order</button>
+  </div>
+
+  <hr />
+  <h4>Order History</h4>
+  <table class="table table-bordered">
+    <thead class="table-dark">
+      <tr><th>Order ID</th><th>Customer</th><th>Total</th><th>Date</th></tr>
+    </thead>
+    <tbody id="orderHistory"></tbody>
+  </table>
+</section>
+
     </div>
 
     <!-- ===== JS Files ===== -->
