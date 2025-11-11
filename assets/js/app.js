@@ -1,6 +1,7 @@
 import { loadAllCustomers, addCustomer, updateCustomer, deleteCustomer } from "../../controller/CustomerController.js";
 import { loadAllItems, addItem, updateItem, deleteItem } from "../../controller/ItemController.js";
-import { loadCustomerIds, loadItemCodes, addToCart, placeOrder, loadOrderHistory } from "../../controller/OrderController.js";
+// IMPORTANT: loadAllItems is now also imported here so it can be used in OrderController
+import { loadCustomerIds, loadItemCodes, addToCart, placeOrder, loadOrderHistory } from "../../controller/OrderController.js"; 
 
 // --- Authentication (simple) ---
 const VALID_USERNAME = "admin";
@@ -13,19 +14,20 @@ function showPage(pageId) {
 }
 
 $(document).ready(function () {
-
-  // Show only login page at first
+  // Show login first
   showPage("login-page");
+  $("#mainNavbar").hide();
 
   // === LOGIN ===
-  $("#loginForm").on("submit", function(event) {
+  $("#loginForm").on("submit", function (event) {
     event.preventDefault();
     const username = $("#loginUsername").val().trim();
     const password = $("#loginPassword").val().trim();
 
     if (username === VALID_USERNAME && password === VALID_PASSWORD) {
       alert("Login successful!");
-      $("#btnLogout").show();
+      $("#login-page").fadeOut(400);
+      $("#mainNavbar").fadeIn(400);
       showPage("home-page");
 
       // Load initial data
@@ -40,18 +42,22 @@ $(document).ready(function () {
   });
 
   // === LOGOUT ===
-  $("#btnLogout").click(function() {
-    $("#btnLogout").hide();
-    $("#loginForm")[0].reset();
+  $("#btnLogout").click(function () {
+    const confirmed = confirm("Are you sure you want to log out?");
+    if (!confirmed) return; // Cancel logout if user clicks 'Cancel'
+
+    $("#mainNavbar").fadeOut(300);
     showPage("login-page");
+    $("#loginForm")[0].reset();
+    $("#login-page").fadeIn(300);
   });
 
   // === NAVIGATION ===
   $(".nav-link").click(function () {
     const target = $(this).data("target");
-    showPage(target);
     $(".nav-link").removeClass("active");
     $(this).addClass("active");
+    showPage(target);
   });
 
   // === CUSTOMER EVENTS ===
