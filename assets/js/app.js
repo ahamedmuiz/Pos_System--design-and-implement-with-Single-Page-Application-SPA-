@@ -1,7 +1,8 @@
 import { loadAllCustomers, addCustomer, updateCustomer, deleteCustomer } from "../../controller/CustomerController.js";
 import { loadAllItems, addItem, updateItem, deleteItem } from "../../controller/ItemController.js";
 // IMPORTANT: loadAllItems is now also imported here so it can be used in OrderController
-import { loadCustomerIds, loadItemCodes, addToCart, placeOrder, loadOrderHistory } from "../../controller/OrderController.js"; 
+// NOTE: We also import calculateTotal for the cart removal feature
+import { loadCustomerIds, loadItemCodes, addToCart, placeOrder, loadOrderHistory, calculateTotal } from "../../controller/OrderController.js"; 
 
 // --- Authentication (simple) ---
 const VALID_USERNAME = "admin";
@@ -93,4 +94,15 @@ $(document).ready(function () {
   // === ORDER EVENTS ===
   $("#btnAddToCart").click(addToCart);
   $("#btnPlaceOrder").click(placeOrder);
+  
+  // === NEW: CART ITEM REMOVAL EVENT ===
+  $("#cartTable").on("click", ".btn-remove-item", function() {
+    const rowToRemove = $(this).closest("tr"); 
+    const itemCode = $(rowToRemove).find("td:first-child").text();
+    
+    rowToRemove.remove();
+    calculateTotal();
+    
+    alert(`Item ${itemCode} removed from cart.`);
+  });
 });

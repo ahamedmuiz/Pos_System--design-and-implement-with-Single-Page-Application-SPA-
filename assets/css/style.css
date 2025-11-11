@@ -12,26 +12,105 @@ body {
   border-radius: 5px;
 }
 
-/* LOGIN OVERLAY */
 #login-page {
-  background: linear-gradient(135deg, #06beb6, #48b1bf);
+  background-image: url("/assets/images/login.jpeg");
+  
+  background-size: cover; 
+  background-position: top;
+  background-repeat: no-repeat;
   position: fixed;
   inset: 0;
   z-index: 9999;
 }
 
-/* HOME BACKGROUND */
-#home-page {
-  background-image: url("/assets/images/pos-home-background-img.jpeg");
+/* Base Styles for all Pages with Background Image */
+#home-page,
+#customer-page,
+#item-page,
+#order-page {
+  position: relative; 
+  min-height: calc(100vh - 56px);
+  color: #000;
+  z-index: 1; 
+  padding-top: 50px; 
+}
+
+#home-page::before {
+  content: "";
+  background-image: url("/assets/images/z.jpeg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  min-height: calc(100vh - 56px);
-  color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; 
+    opacity: 0.7; 
+}
+
+/* Pseudo-element for other pages (Partial Opacity: 0.3) */
+#customer-page::before,
+#item-page::before,
+#order-page::before {
+  content: "";
+  background-image: url("/assets/images/bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  
+  /* --- OTHER PAGES: PARTIAL OPACITY (0.3) --- */
+  opacity: 0.3; 
+}
+
+/* Specific styling for the Home page layout (Centered text) */
+#home-page {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+  color: white; /* Ensure text is white for the Home page greeting */
+  text-shadow: 0 0 5px #000;
+}
+
+/* Home Content Structure Styling */
+.home-content {
+    max-width: 700px;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.4); /* Subtle transparent dark background for readability */
+}
+
+.home-content .display-3 {
+    letter-spacing: 2px;
+}
+
+/* --- NEW STYLING FOR FUNCTIONAL PAGES (Customer, Item, Order) --- */
+.content-card {
+    background-color: rgba(255, 255, 255, 0.9); /* Opaque white background for readability */
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    color: #333; /* Dark text for readability */
+}
+
+.content-header {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #0d6efd;
+    color: #0d6efd; /* Primary color for header */
+}
+
+/* Style table within the content card */
+.content-card .table {
+    margin-bottom: 0;
 }
